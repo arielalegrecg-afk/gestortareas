@@ -1,0 +1,28 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ======================
+# Entornos virtuales
+# ======================
+venv/
+.env/
+.venv/
+
+# ======================
+# Archivos de pruebas / temporales
+# ======================
+*.pkl
+
+# ======================
+# Sistema / editor
+# ======================
+.vscode/
+.DS_Store
+Thumbs.db
+
+*.dat

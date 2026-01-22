@@ -1,0 +1,90 @@
+### Fase 1: La Interfaz de Consola Básica (MVP)
+El primer prompt habría solicitado una interfaz funcional utilizando solo la librería estándar de Python ( os , sys , getpass ), conectada al core que ya analizamos.
+
+Prompt Sugerido (Fase 1 - Funcionalidad Pura): "Crea un archivo main.py que sirva como punto de entrada (CLI) para el sistema.
+
+Requisitos Técnicos:
+
+- Importa GestorTareas del paquete core .
+- Usa un bucle infinito while True para el menú principal.
+- Usa input() para capturar opciones y print() para mostrar resultados.
+- Usa getpass para las contraseñas (para que no se vean al escribir).
+- Implementa un método limpiar_pantalla que detecte el SO (Windows/Linux).
+Flujo de la Aplicación:
+
+
+1. Al iniciar, verifica si existe algún administrador ( gestor.existe_admin() ).
+   - Si NO existe: Fuerza un flujo de creación de admin inicial.
+   - Si SI existe: Muestra la pantalla de Login.
+2. Login: Pide usuario y contraseña. Si falla 3 veces, cierra el programa.
+Al loguearse correctamente, el usuario autenticado se guarda como usuario_actual en main.py.
+
+
+3. Menú Principal: Una vez logueado, muestra opciones según el rol:
+
+Hacer 2 menúes, diferenciandos según el rol 
+
+Menú Admin:
+- Ver usuarios
+- Crear usuario
+- Resetear passwords
+- Ver estadísticas
+
+Menú Usuario:
+- Ver mis tareas
+- Crear tarea
+- Finalizar tarea
+- Ver perfil
+
+4. Maneja las excepciones para que el programa no se cierre por errores de lógica.
+
+- Captura ValueError, PermissionError y Exception
+- Muestra el mensaje del error sin cerrar el programa"
+
+### Fase 2: La Evolución a "Rich" (UI Moderna)
+
+Una vez que la lógica funcionaba, el siguiente prompt habría pedido transformar esa interfaz aburrida en la versión visualmente atractiva que tienes ahora en main.py .
+
+Prompt Sugerido (Fase 2 - Mejora Visual con Rich): "El archivo main.py funciona bien pero es muy aburrido visualmente. Quiero refactorizarlo usando la librería Rich para darle un aspecto profesional.
+
+Instrucciones de Refactorización:
+
+1. Setup:
+   - Crea una clase InterfazConsola para encapsular la UI.
+   - Configura una Console de Rich con un tema personalizado (verde para éxito, rojo para error, azul para títulos).
+
+- Define un Theme de Rich con estilos:
+  - success: green
+  - error: red
+  - warning: yellow
+  - title: blue bold
+
+ - No usar print(), input() ni getpass()
+ - Toda interacción pasa por Rich
+
+ - No modificar GestorTareas ni modelos
+ - Solo refactorizar main.py y crear InterfazConsola
+
+
+
+
+
+2. Componentes Visuales:
+   - Reemplaza todos los print simples por console.print con estilos.
+   - Usa Panel para los menúes, mensajes de bienvenida y alertas importantes.
+   - Usa Table para listar las tareas y usuarios (con columnas para Estado, Fecha, etc.).
+   - Usa Prompt.ask y Confirm.ask de Rich para las entradas de usuario en lugar de input() .
+   - Usa Align.center para centrar los títulos y paneles importantes.
+3. Experiencia de Usuario (UX):
+   - Agrega iconos (emojis) a los mensajes (✅ para éxito, ❌ para error, ⚠️ para advertencias).
+   - Cuando el usuario inicie sesión, muestra un panel de bienvenida con su nombre y rol.
+   - Si es el primer login de un usuario (sin password), muestra un asistente paso a paso bonito para configurar su contraseña.
+4. Código: Mantén la lógica de negocio delegada en GestorTareas , solo cambia la capa de presentación."
+
+### ¿Por qué estos prompts?
+
+1. Separación de preocupaciones: El código final muestra una clase InterfazConsola muy estructurada, lo que sugiere que se pidió explícitamente encapsular la UI, separándola de la lógica bruta.
+
+2. Uso específico de componentes: El código usa Panel , Table , Theme , Align , lo que indica que el usuario (o el prompt) conocía las capacidades de rich y pidió usarlas específicamente para evitar un simple "texto coloreado".
+
+3. Manejo de estados: La lógica de "Primer Login" vs "Login Normal" está muy bien detallada en el código, lo que sugiere un requerimiento explícito sobre el flujo de incorporación de usuarios.
