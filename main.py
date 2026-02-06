@@ -1,6 +1,7 @@
 import sys
 
-from gestor_tareas import GestorTareas
+# from gestor_tareas import GestorTareas
+from core import GestorTareas
 from interfaz_consola import InterfazConsola
 from usuarios import Usuario
 
