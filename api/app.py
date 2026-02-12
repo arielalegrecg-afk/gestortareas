@@ -37,12 +37,21 @@ def obtener_usuario_actual(request: Request) -> Usuario:
 # RUTAS
 # ============================================
 
+
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
+    username = request.cookies.get("username")
+    usuario = gestor.usuarios.get(username) if username else None
+
     return templates.TemplateResponse(
         "login.html",
-        {"request": request}
+        {
+            "request": request,
+            "usuario": usuario
+        }
     )
+
+
 
 @app.get("/login", response_class=HTMLResponse)
 def login_form(request: Request):
