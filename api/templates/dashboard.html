@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Dashboard</h2>
+    <p>Usuario: {{ usuario.nombre }}</p>
+
+    <ul>
+        {% for tarea in tareas %}
+            <li>{{ tarea.nombre }} - {{ tarea.estado }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/logout">Cerrar sesión</a>
+</body>
+</html>
