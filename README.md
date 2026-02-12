@@ -122,8 +122,8 @@ Sistema de gestión de tareas con tres niveles de usuarios (**user**, **supervis
                │
 ┌──────────────▼──────────────────────────┐
 │   Persistencia ✅                       │
-│   - Pickle: usuarios.dat, tareas.dat   │
-│   - JSON: tareas_finalizadas.json      │
+│   - Pickle: usuarios.dat, tareas.dat    │
+│   - JSON: tareas_finalizadas.json       │
 └─────────────────────────────────────────┘
 ```
 
@@ -166,21 +166,128 @@ Usuario → CLI/Web → Schemas (validación) → GestorTareas → Modelos (Usua
 
 ### Requisitos Previos
 
-- **Python 3.10 o superior**
-- pip (gestor de paquetes de Python)
+- **Python 3.8 o superior**
+- **uv** (gestor de paquetes ultrarrápido) - [Instalación](https://docs.astral.sh/uv/getting-started/installation/) (Recomendado)
+- **pip** (gestor de paquetes de Python) - [Instalación](https://pip.pypa.io/en/stable/installation/) (Recomendado)
 
-### Pasos de Instalación
-
-1. **Clonar el repositorio**
+### Instalación de uv
 
 ```bash
-git clone https://github.com/tu-usuario/gestortareas.git
-cd gestortareas
+# Windows (PowerShell)
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# Linux/Mac
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Verificar instalación
+uv --version
 ```
 
-2. **Crear entorno virtual** (recomendado)
+---
+
+### 🚀 Método 1: Instalación con uv (Recomendado)
+
+#### Opción A: Usando pyproject.toml (Proyecto ya inicializado)
 
 ```bash
+# 1. Clonar el repositorio
+git clone https://github.com/tu-usuario/gestortareas.git
+cd gestortareas
+
+# 2. Sincronizar dependencias (crea .venv automáticamente)
+uv sync
+
+# 3. Activar entorno virtual
+# Windows
+.venv\Scripts\activate
+
+# Linux/Mac
+source .venv/bin/activate
+
+# 4. Ejecutar tests
+uv run pytest test/test_schemas.py -v
+```
+
+#### Opción B: Seleccionar versión específica de Python
+
+```bash
+# Ver versiones de Python disponibles
+uv python list
+
+# Instalar una versión específica (ejemplo: Python 3.11)
+uv python install 3.11
+
+# Crear proyecto con Python 3.11
+uv venv --python 3.11
+
+# Sincronizar dependencias
+uv sync
+
+# Activar entorno
+# Windows
+.venv\Scripts\activate
+
+# Linux/Mac
+source .venv/bin/activate
+```
+
+#### Opción C: Migrar desde requirements.txt a pyproject.toml
+
+Si tienes un `requirements.txt` y quieres migrar a `uv`:
+
+```bash
+# 1. Inicializar proyecto uv
+uv init .
+
+# 2. Agregar dependencias desde requirements.txt
+uv add pydantic bcrypt rich
+
+# 3. Agregar dependencias de desarrollo
+uv add --dev pytest
+
+# 4. Sincronizar (instala todo y genera uv.lock)
+uv sync
+
+# 5. (Opcional) Eliminar requirements.txt antiguo
+# rm requirements.txt
+```
+
+**Dependencias instaladas:**
+```toml
+[project.dependencies]
+pydantic>=2.0.0      # Validación de datos
+bcrypt>=4.0.0        # Hashing de passwords
+rich>=13.0.0         # Interfaz de consola
+
+[project.optional-dependencies.dev]
+pytest>=7.0.0        # Testing
+```
+
+#### Verificar instalación
+
+```bash
+# Verificar dependencias (sin activar entorno)
+uv run python -c "import pydantic, bcrypt, pytest, rich; print('✅ Instalación correcta')"
+
+# Ejecutar tests
+uv run pytest test/test_schemas.py -v
+
+# O con entorno activado
+pytest test/test_schemas.py -v
+```
+
+---
+
+### 🐍 Método 2: Instalación tradicional con pip
+
+Si prefieres usar `pip` en lugar de `uv`:
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/tu-usuario/gestortareas.git
+cd gestortareas
+
+# 2. Crear entorno virtual
 # Windows
 python -m venv venv
 venv\Scripts\activate
@@ -188,37 +295,25 @@ venv\Scripts\activate
 # Linux/Mac
 python3 -m venv venv
 source venv/bin/activate
-```
 
-3. **Instalar dependencias actuales**
-
-```bash
+# 3. Instalar dependencias
 pip install -r requirements.txt
-```
 
-**Dependencias instaladas:**
-```
-pydantic>=2.0.0      # Validación de datos
-bcrypt>=4.0.0        # Hashing de passwords
-pytest>=7.0.0        # Testing
-```
-
-4. **Verificar instalación**
-
-```bash
-# Verificar dependencias
-python -c "import pydantic, bcrypt, pytest; print('✅ Instalación correcta')"
-
-# Ejecutar tests
+# 4. Ejecutar tests
 pytest test/test_schemas.py -v
 ```
 
-### Instalación Completa (Futuro)
+---
+
+### 🌐 Instalación Completa con Dependencias Web (Futuro)
 
 Para instalar todas las dependencias incluidas las de desarrollo web:
 
 ```bash
-# Descomentar líneas en requirements.txt
+# Con uv
+uv sync --extra web
+
+# Con pip (descomentar líneas en requirements.txt)
 pip install fastapi uvicorn[standard] jinja2 python-multipart itsdangerous httpx
 ```
 
