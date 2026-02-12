@@ -1,0 +1,19 @@
+# Core
+pydantic>=2.0.0
+bcrypt>=4.0.0
+
+# Web Framework (pendiente implementar)
+# fastapi>=0.100.0
+# uvicorn[standard]>=0.22.0
+# jinja2>=3.1.0
+# python-multipart>=0.0.6
+
+# Autenticación (pendiente implementar)
+# itsdangerous>=2.1.0
+
+# Testing
+pytest>=7.0.0
+# httpx>=0.24.0
+
+# interfaz de consola
+rich>=13.0.0
