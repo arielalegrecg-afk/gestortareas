@@ -1,3 +1,6 @@
+from api.app import app
+
+
 import sys
 
 # from gestor_tareas import GestorTareas
